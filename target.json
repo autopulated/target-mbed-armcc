@@ -1,0 +1,21 @@
+{
+  "name": "mbed-armcc",
+  "version": "0.0.0",
+  "description": "Official mbed base target description for compiling with the ARMCC compiler",
+  "licenses": [
+    {
+      "url": "https://spdx.org/licenses/Apache-2.0",
+      "type": "Apache-2.0"
+    }
+  ],
+  "keywords": [
+    "mbed-official",
+    "armcc"
+  ],
+  "similarTo": [
+    "arm",
+    "armcc",
+    "mbed"
+  ],
+  "toolchain": "CMake/toolchain.cmake"
+}

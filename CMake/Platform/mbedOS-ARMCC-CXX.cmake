@@ -1,0 +1,21 @@
+# Copyright (C) 2014-2015 ARM Limited. All rights reserved. 
+
+# can't test the compiler because it cross-compiles
+set(CMAKE_CXX_COMPILER_WORKS TRUE)
+
+set(CMAKE_CXX_CREATE_SHARED_LIBRARY "echo 'shared libraries not supported' && 1")
+set(CMAKE_CXX_CREATE_SHARED_MODULE  "echo 'shared modules not supported' && 1")
+set(CMAKE_CXX_CREATE_STATIC_LIBRARY "<CMAKE_AR> -cr<LINK_FLAGS> <TARGET> <OBJECTS>")
+set(CMAKE_CXX_COMPILE_OBJECT        "${ARMCC_ENV} <CMAKE_CXX_COMPILER> ${YOTTA_TARGET_DEFINITIONS} <DEFINES> -c <FLAGS> --cpp -o <OBJECT> <SOURCE>")
+set(CMAKE_CXX_LINK_EXECUTABLE       "<CMAKE_LINKER> -o <TARGET> <OBJECTS> <LINK_LIBRARIES> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS>")
+
+set(CMAKE_CXX_FLAGS_DEBUG_INIT          "-O0 -g")
+set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "-O3 -Ospace -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE_INIT        "-O3 -Ospace -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O3 -Ospace -g -DNDEBUG")
+set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-isystem ")
+
+set(CMAKE_CXX_LINK_FLAGS "")
+
+set(CMAKE_CXX_OUTPUT_EXTENSION ".o")
+set(CMAKE_CXX_RESPONSE_FILE_LINK_FLAG "--via=")
