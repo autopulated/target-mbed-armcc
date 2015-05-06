@@ -24,10 +24,8 @@ set(_C_FAMILY_FLAGS_INIT "--split_sections --apcs=interwork --restrict --no_rtti
 set(CMAKE_C_FLAGS_INIT   "--c99 ${_C_FAMILY_FLAGS_INIT}")
 set(CMAKE_ASM_FLAGS_INIT "--gnu --split_sections --apcs=interwork --restrict --no_rtti")
 set(CMAKE_CXX_FLAGS_INIT "${_C_FAMILY_FLAGS_INIT} --no_exceptions")
-set(CMAKE_MODULE_LINKER_FLAGS_INIT
-    "-fno-exceptions -fno-unwind-tables -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment"
-)
-set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT} -Wl,-wrap,main") 
+set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT}") 
 
 # Set the compiler to ARMCC
 include(CMakeForceCompiler)
