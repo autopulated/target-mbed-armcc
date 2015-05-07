@@ -1,5 +1,5 @@
 # Copyright (C) 2014-2015 ARM Limited. All rights reserved.
-#message("mbedOS-GNU-C.cmake included")
+#message("mbedOS-ARMCC-C.cmake included")
 
 if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
     set(ARMCC_ENV "")
@@ -28,25 +28,4 @@ set(CMAKE_ASM_FLAGS_RELEASE_INIT        "-O3 -Ospace -DNDEBUG")
 set(CMAKE_ASM_FLAGS_RELWITHDEBINFO_INIT "-O3 -Ospace -g -DNDEBUG")
 set(CMAKE_INCLUDE_SYSTEM_FLAG_ASM  "-isystem ")
 
-
-# include paths for standard libs (use gcc's)
-exec_program("${CMAKE_C_COMPILER} -print-libgcc-file-name" OUTPUT_VARIABLE _ARM_GNU_LIBGCC)
-get_filename_component(_ARM_GNU_GCC_DIR ${CMAKE_C_COMPILER} DIRECTORY)
-get_filename_component(_ARM_GNU_LIBGCC_DIR ${_ARM_GNU_LIBGCC} DIRECTORY)
-
-# set link flags
-set(CMAKE_C_LINK_FLAGS "")
-set(CMAKE_MODULE_LINKER_FLAGS_INIT
-    ""
-)
-
-# set the link script
-set(CMAKE_EXE_LINKER_FLAGS_INIT
-    "${CMAKE_MODULE_LINKER_FLAGS_INIT}"
-) 
-
-set(CMAKE_STATIC_LIBRARY_PREFIX "")
-set(CMAKE_STATIC_LIBRARY_SUFFIX ".ar")
-set(CMAKE_EXECUTABLE_SUFFIX "")
-set(CMAKE_C_OUTPUT_EXTENSION ".o")
 set(CMAKE_C_RESPONSE_FILE_LINK_FLAG "--via=")

@@ -7,6 +7,13 @@
 # No shared libraries
 set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
 
+set(CMAKE_STATIC_LIBRARY_PREFIX "")
+set(CMAKE_STATIC_LIBRARY_SUFFIX ".ar")
+set(CMAKE_EXECUTABLE_SUFFIX "")
+set(CMAKE_C_OUTPUT_EXTENSION ".o")
+set(CMAKE_ASM_OUTPUT_EXTENSION ".o")
+set(CMAKE_CXX_OUTPUT_EXTENSION ".o")
+
 # adjust the default behaviour of the FIND_XXX() commands:
 # search headers and libraries in the target environment, search 
 # programs in the host environment
