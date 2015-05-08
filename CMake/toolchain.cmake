@@ -34,4 +34,3 @@ cmake_force_c_compiler(armcc ARMCC)
 cmake_force_cxx_compiler(armcc ARMCC)
 find_program(CMAKE_LINKER armlink)
 find_program(CMAKE_AR armar)
-

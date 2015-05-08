@@ -7,7 +7,6 @@ else()
     set(ARMCC_ENV "LC_ALL=en_US.utf8 LANG=en_US.utf8")
 endif()
 
-
 # Override the link rules:
 set(CMAKE_C_CREATE_SHARED_LIBRARY "echo 'shared libraries not supported' && 1")
 set(CMAKE_C_CREATE_SHARED_MODULE  "echo 'shared modules not supported' && 1")
