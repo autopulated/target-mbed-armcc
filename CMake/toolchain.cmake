@@ -16,8 +16,8 @@ set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 
 # post-process elf files into .bin files:
-#set(YOTTA_POSTPROCESS_COMMAND "arm-none-eabi-objcopy -O binary YOTTA_CURRENT_EXE_NAME YOTTA_CURRENT_EXE_NAME.bin")
-
+find_program(ARMCC_FROMELF fromelf)
+set(YOTTA_POSTPROCESS_COMMAND "${ARMCC_FROMELF} --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
 
 # set default compilation flags
 set(_C_FAMILY_FLAGS_INIT "--split_sections --apcs=interwork --restrict --no_rtti --multibyte-chars")
