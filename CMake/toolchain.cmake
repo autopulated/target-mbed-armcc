@@ -37,3 +37,17 @@ cmake_force_c_compiler(armcc ARMCC)
 cmake_force_cxx_compiler(armcc ARMCC)
 find_program(CMAKE_LINKER armlink)
 find_program(CMAKE_AR armar)
+
+
+# post-process elf files into .bin files:
+function(yotta_apply_target_rules target_type target_name)
+    if(${target_type} STREQUAL "EXECUTABLE")
+        add_custom_command(TARGET ${target_name}
+            POST_BUILD
+            COMMAND ${ARMCC_FROMELF} --bin ${target_name} --output ${target_name}.bin
+            COMMENT "converting to .bin"
+            VERBATIM
+        )
+    endif()
+endfunction()
+
