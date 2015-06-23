@@ -15,6 +15,9 @@ set(CMAKE_SYSTEM_NAME mbedOS)
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 
+# required for -include yotta_config.h
+set(YOTTA_FORCE_INCLUDE_FLAG "--preinclude")
+
 # post-process elf files into .bin files:
 find_program(ARMCC_FROMELF fromelf)
 set(YOTTA_POSTPROCESS_COMMAND "${ARMCC_FROMELF} --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
