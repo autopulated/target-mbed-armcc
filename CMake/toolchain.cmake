@@ -20,10 +20,10 @@ set(YOTTA_FORCE_INCLUDE_FLAG "--preinclude")
 
 # legacy definitions for building mbed 2.0 modules with a retrofitted build
 # system:
-set(MBED_LEGACY_TOOLCHAIN "GCC_ARM")
+set(MBED_LEGACY_TOOLCHAIN "ARM_STD")
 # provide compatibility definitions for compiling with this target: these are
 # definitions that legacy code assumes will be defined. 
-add_definitions("-DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DMBED_OPERATORS")
+add_definitions("-DTOOLCHAIN_ARM -DTOOLCHAIN_ARM_STD -DMBED_OPERATORS")
 
 # post-process elf files into .bin files:
 find_program(ARMCC_FROMELF fromelf)
