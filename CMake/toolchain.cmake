@@ -18,6 +18,13 @@ set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 # required for -include yotta_config.h
 set(YOTTA_FORCE_INCLUDE_FLAG "--preinclude")
 
+# legacy definitions for building mbed 2.0 modules with a retrofitted build
+# system:
+set(MBED_LEGACY_TOOLCHAIN "GCC_ARM")
+# provide compatibility definitions for compiling with this target: these are
+# definitions that legacy code assumes will be defined. 
+add_definitions("-DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DMBED_OPERATORS")
+
 # post-process elf files into .bin files:
 find_program(ARMCC_FROMELF fromelf)
 set(YOTTA_POSTPROCESS_COMMAND "${ARMCC_FROMELF} --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
