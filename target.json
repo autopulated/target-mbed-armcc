@@ -1,6 +1,6 @@
 {
   "name": "mbed-armcc",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Official mbed base target description for compiling with the ARMCC compiler",
   "licenses": [
     {
@@ -18,9 +18,9 @@
     "mbed"
   ],
   "config": {
-    "minar" : {
-      "initial_event_pool_size"     : 50,
-      "additional_event_pools_size" : 100
+    "minar": {
+      "initial_event_pool_size": 50,
+      "additional_event_pools_size": 100
     }
   },
   "toolchain": "CMake/toolchain.cmake"
