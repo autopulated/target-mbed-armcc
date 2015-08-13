@@ -25,9 +25,42 @@ set(MBED_LEGACY_TOOLCHAIN "ARM_STD")
 # definitions that legacy code assumes will be defined. 
 add_definitions("-DTOOLCHAIN_ARM -DTOOLCHAIN_ARM_STD -DMBED_OPERATORS")
 
-# post-process elf files into .bin files:
-find_program(ARMCC_FROMELF fromelf)
-set(YOTTA_POSTPROCESS_COMMAND "${ARMCC_FROMELF} --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
+
+# find the compiler and associated tools that we need:
+find_program(ARMCC_PROGRAM armcc)
+find_program(ARMCC_FROMELF_PROGRAM fromelf)
+find_program(ARMCC_ARMLINK_PROGRAM armlink)
+find_program(ARMCC_AR_PROGRAM armar)
+macro(arm_toolchain_program_notfound progname)
+    message("**************************************************************************\n")
+    message(" ERROR: the arm toolchain program ${progname} could not be found.\n")
+    if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+        message(" Note that the armcc toolchain is not available for Max OS X.")
+    else()
+        message(" Please check that your arm compiler installation directory is in")
+        message(" the PATH for this shell")
+    endif()
+    message("\n**************************************************************************")
+    message(FATAL_ERROR "missing program prevents build")
+    return()
+endmacro()
+
+if(NOT ARMCC_PROGRAM)
+    arm_toolchain_program_notfound("armcc")
+endif()
+if(NOT ARMCC_FROMELF_PROGRAM)
+    arm_toolchain_program_notfound("fromelf")
+endif()
+if(NOT ARMCC_ARMLINK_PROGRAM)
+    arm_toolchain_program_notfound("armlink")
+endif()
+if(NOT ARMCC_AR_PROGRAM)
+    arm_toolchain_program_notfound("armar")
+endif()
+
+# post-process elf files into .bin files (deprecated backwards-compatible
+# version):
+set(YOTTA_POSTPROCESS_COMMAND "${ARMCC_FROMELF_PROGRAM} --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
 
 # set default compilation flags
 set(_C_FAMILY_FLAGS_INIT "--split_sections --apcs=interwork --restrict --no_rtti --multibyte-chars")
@@ -40,18 +73,18 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT}")
 # Set the compiler to ARMCC
 include(CMakeForceCompiler)
 
-cmake_force_c_compiler(armcc ARMCC)
-cmake_force_cxx_compiler(armcc ARMCC)
-find_program(CMAKE_LINKER armlink)
-find_program(CMAKE_AR armar)
+cmake_force_c_compiler(armcc ${ARMCC_PROGRAM})
+cmake_force_cxx_compiler(armcc ${ARMCC_PROGRAM})
+set(CMAKE_LINKER ${ARMCC_ARMLINK_PROGRAM})
+set(CMAKE_AR ${ARMCC_AR_PROGRAM})
 
 
-# post-process elf files into .bin files:
+# post-process elf files into .bin files (new version):
 function(yotta_apply_target_rules target_type target_name)
     if(${target_type} STREQUAL "EXECUTABLE")
         add_custom_command(TARGET ${target_name}
             POST_BUILD
-            COMMAND ${ARMCC_FROMELF} --bin ${target_name} --output ${target_name}.bin
+            COMMAND ${ARMCC_FROMELF_PROGRAM} --bin ${target_name} --output ${target_name}.bin
             COMMENT "converting to .bin"
             VERBATIM
         )
