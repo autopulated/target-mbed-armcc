@@ -75,8 +75,8 @@ include(CMakeForceCompiler)
 
 cmake_force_c_compiler("${ARMCC_PROGRAM}" ARMCC)
 cmake_force_cxx_compiler("${ARMCC_PROGRAM}" ARMCC)
-set(CMAKE_LINKER "${ARMCC_ARMLINK_PROGRAM}")
-set(CMAKE_AR "${ARMCC_AR_PROGRAM}")
+set(CMAKE_LINKER "${ARMCC_ARMLINK_PROGRAM}" CACHE FILEPATH "linker")
+set(CMAKE_AR "${ARMCC_AR_PROGRAM}" CACHE FILEPATH "archiver")
 
 
 # post-process elf files into .bin files (new version):
