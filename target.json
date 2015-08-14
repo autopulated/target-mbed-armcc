@@ -1,6 +1,6 @@
 {
   "name": "mbed-armcc",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Official mbed base target description for compiling with the ARMCC compiler",
   "homepage": "https://github.com/ARMmbed/target-mbed-armcc",
   "repository": {
