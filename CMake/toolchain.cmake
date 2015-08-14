@@ -60,7 +60,7 @@ endif()
 
 # post-process elf files into .bin files (deprecated backwards-compatible
 # version):
-set(YOTTA_POSTPROCESS_COMMAND "${ARMCC_FROMELF_PROGRAM} --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
+set(YOTTA_POSTPROCESS_COMMAND "\"${ARMCC_FROMELF_PROGRAM}\" --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
 
 # set default compilation flags
 set(_C_FAMILY_FLAGS_INIT "--split_sections --apcs=interwork --restrict --no_rtti --multibyte-chars")
