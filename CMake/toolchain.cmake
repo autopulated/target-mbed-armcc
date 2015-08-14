@@ -73,10 +73,10 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT}")
 # Set the compiler to ARMCC
 include(CMakeForceCompiler)
 
-cmake_force_c_compiler(armcc ${ARMCC_PROGRAM})
-cmake_force_cxx_compiler(armcc ${ARMCC_PROGRAM})
-set(CMAKE_LINKER ${ARMCC_ARMLINK_PROGRAM})
-set(CMAKE_AR ${ARMCC_AR_PROGRAM})
+cmake_force_c_compiler("${ARMCC_PROGRAM}" ARMCC)
+cmake_force_cxx_compiler("${ARMCC_PROGRAM}" ARMCC)
+set(CMAKE_LINKER "${ARMCC_ARMLINK_PROGRAM}")
+set(CMAKE_AR "${ARMCC_AR_PROGRAM}")
 
 
 # post-process elf files into .bin files (new version):
@@ -84,7 +84,7 @@ function(yotta_apply_target_rules target_type target_name)
     if(${target_type} STREQUAL "EXECUTABLE")
         add_custom_command(TARGET ${target_name}
             POST_BUILD
-            COMMAND ${ARMCC_FROMELF_PROGRAM} --bin ${target_name} --output ${target_name}.bin
+            COMMAND "${ARMCC_FROMELF_PROGRAM}" --bin ${target_name} --output ${target_name}.bin
             COMMENT "converting to .bin"
             VERBATIM
         )
