@@ -11,6 +11,9 @@ set(CMAKE_STATIC_LIBRARY_PREFIX "")
 set(CMAKE_STATIC_LIBRARY_SUFFIX ".ar")
 set(CMAKE_EXECUTABLE_SUFFIX "")
 
+include_directories("${CMAKE_BINARY_DIR}/generated/include")
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated/include")
+
 # adjust the default behaviour of the FIND_XXX() commands:
 # search headers and libraries in the target environment, search 
 # programs in the host environment
