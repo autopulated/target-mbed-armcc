@@ -68,7 +68,9 @@ set(CMAKE_C_FLAGS_INIT   "--c99 ${_C_FAMILY_FLAGS_INIT}")
 set(CMAKE_ASM_FLAGS_INIT "--gnu --split_sections --apcs=interwork --restrict --no_rtti")
 set(CMAKE_CXX_FLAGS_INIT "${_C_FAMILY_FLAGS_INIT} --no_exceptions --gnu")
 set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
-set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT}") 
+# suppress duplicate input file warnings because CMake will normally list input
+# files several times for the linker (other linkers require this):
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT} --diag-suppress 6304 ") 
 
 # Set the compiler to ARMCC
 include(CMakeForceCompiler)
