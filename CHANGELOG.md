@@ -1,3 +1,6 @@
+## 0.1.2
+ * fix dependency tracking
+
 ## 0.1.1
  * update for compatibility with CMake >= 3.4.0
 
