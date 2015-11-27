@@ -66,7 +66,7 @@ set(YOTTA_POSTPROCESS_COMMAND "\"${ARMCC_FROMELF_PROGRAM}\" --bin YOTTA_CURRENT_
 set(_C_FAMILY_FLAGS_INIT "--split_sections --apcs=interwork --restrict --no_rtti --multibyte-chars")
 set(CMAKE_C_FLAGS_INIT   "--c99 ${_C_FAMILY_FLAGS_INIT}")
 set(CMAKE_ASM_FLAGS_INIT "--gnu --split_sections --apcs=interwork --restrict --no_rtti")
-set(CMAKE_CXX_FLAGS_INIT "${_C_FAMILY_FLAGS_INIT} --no_exceptions --gnu")
+set(CMAKE_CXX_FLAGS_INIT "--cpp11 ${_C_FAMILY_FLAGS_INIT} --no_exceptions --gnu")
 set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
 # suppress duplicate input file warnings because CMake will normally list input
 # files several times for the linker (other linkers require this):
