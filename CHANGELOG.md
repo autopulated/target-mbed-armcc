@@ -1,3 +1,6 @@
+## 0.1.3
+ * add config for mbed default baud rate
+
 ## 0.1.2
  * fix dependency tracking
 
