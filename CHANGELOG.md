@@ -1,3 +1,10 @@
+## 1.0.0
+ * Switch on C++11 compilation by default. This is technically a breaking
+   change, but the mbed-OS modules themselves have been patched so that they
+   continue to work correctly.
+ * armcc >= 5.05 is now required. An error message is displayed if an older
+   version is detected.
+
 ## 0.1.3
  * add config for mbed default baud rate
 
