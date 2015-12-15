@@ -58,6 +58,28 @@ if(NOT ARMCC_AR_PROGRAM)
     arm_toolchain_program_notfound("armar")
 endif()
 
+# check that armcc is the minimum required version. mbed OS requires armcc >=
+# 5.05 < 6 (ARM Compiler 6 Support will be provided via a separate yotta target
+# description)
+if(ARMCC_PROGRAM)
+    exec_program("${ARMCC_PROGRAM}" ARGS "--version_number" OUTPUT_VARIABLE ARMCC_VERSION_AND_BUILD_NUMBER)
+    string(SUBSTRING "${ARMCC_VERSION_AND_BUILD_NUMBER}" 0 3 ARMCC_VERSION_NUMBER)
+    if(ARMCC_VERSION_NUMBER LESS "505")
+        message("*************************************************************************")
+        message("*************************************************************************")
+        message("**                                                                     **")
+        message("**                          FATAL ERROR                                **")
+        message("**                                                                     **")
+        message("**  your armcc version ${ARMCC_VERSION_NUMBER} is too old. 5.05 or greater is required     **")
+        message("**                                                                     **")
+        message("**                                                                     **")
+        message("*************************************************************************")
+        message("*************************************************************************")
+        message(FATAL_ERROR "insufficient armcc version prevents build")
+    endif()
+endif()
+
+
 # post-process elf files into .bin files (deprecated backwards-compatible
 # version):
 set(YOTTA_POSTPROCESS_COMMAND "\"${ARMCC_FROMELF_PROGRAM}\" --bin YOTTA_CURRENT_EXE_NAME --output YOTTA_CURRENT_EXE_NAME.bin")
