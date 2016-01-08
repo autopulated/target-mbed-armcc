@@ -1,3 +1,7 @@
+### 1.0.1
+ * Fix duplicate C++ flag which prevented C++11 support from being correctly
+   enabled.
+
 ## 1.0.0
  * Switch on C++11 compilation by default. This is technically a breaking
    change, but the mbed-OS modules themselves have been patched so that they
