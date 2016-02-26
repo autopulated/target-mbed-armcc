@@ -9,8 +9,6 @@ set(TARGET_MBED_ARMCC_TOOLCHAIN_INCLUDED 1)
 # indirect includes still use it)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
 
-include(CMakeForceCompiler)
-
 set(CMAKE_SYSTEM_NAME mbedOS)
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
@@ -95,10 +93,17 @@ set(CMAKE_MODULE_LINKER_FLAGS_INIT "")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT} --diag-suppress 6304 ") 
 
 # Set the compiler to ARMCC
-include(CMakeForceCompiler)
-
-cmake_force_c_compiler("${ARMCC_PROGRAM}" ARMCC)
-cmake_force_cxx_compiler("${ARMCC_PROGRAM}" ARMCC)
+if(CMAKE_VERSION VERSION_LESS "3.6.0")
+    include(CMakeForceCompiler)
+    cmake_force_c_compiler("${ARMCC_PROGRAM}" ARMCC)
+    cmake_force_cxx_compiler("${ARMCC_PROGRAM}" ARMCC)
+else()
+    # linking an executable for cmake's try_compile tests won't work for bare
+    # metal, so link a static library instead:
+    set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+    set(CMAKE_C_COMPILER "${ARMCC_PROGRAM}")
+    set(CMAKE_CXX_COMPILER "${ARMCC_PROGRAM}")
+endif()
 set(CMAKE_LINKER "${ARMCC_ARMLINK_PROGRAM}" CACHE FILEPATH "linker")
 set(CMAKE_AR "${ARMCC_AR_PROGRAM}" CACHE FILEPATH "archiver")
 
